@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Trick{% endblock %}
+
+{% block javascripts  %}
+    {{ parent() }}
+    <script src="{{ asset('js/detail.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    {% include 'trick/include/main_info.twig' with {'editMode':true} %}
+{% endblock %}

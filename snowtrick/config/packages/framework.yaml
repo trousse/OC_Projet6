@@ -17,6 +17,11 @@ framework:
     php_errors:
         log: true
 
+    assets:
+        packages:
+            photos:
+                base_path: "/images/photos"
+
 when@test:
     framework:
         test: true

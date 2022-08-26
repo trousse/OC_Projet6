@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Trick{% endblock %}
+
+{% block javascripts  %}
+    {{ parent() }}
+    <script src="{{ asset('js/detail.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div id="from_container" class="container">
+        {% include 'trick/include/trick_top.twig' with {'editMode':true} %}
+    </div>
+    {% include 'trick/include/main_info.twig' with {'editMode':true} %}
+
+{% endblock %}
