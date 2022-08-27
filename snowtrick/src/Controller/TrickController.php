@@ -47,7 +47,7 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $trickRepository->add($trick);
 
-            return $this->redirectToRoute('trick_edit', ['slug' => $trick->getSlug()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('trick_edit', ['id' => $trick->getid()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('trick/new.html.twig', [
@@ -102,7 +102,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="delete", methods={"GET"})
+     * @Route("/{id}/delete", name="delete", methods={"GET"})
      */
     public function delete(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {

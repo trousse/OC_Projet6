@@ -44,14 +44,14 @@ class AuthController extends AbstractController
     /**
      * @Route("/signup", name="register")
      */
-    public function signup(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher):Response
+    public function signup(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
         $form = $this->createForm(UserSubformType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            try{
+            try {
                 $hashedPassword = $passwordHasher->hashPassword(
                     $user,
                     $form->getData()->getPassword()
@@ -62,13 +62,13 @@ class AuthController extends AbstractController
                     'success',
                     "votre compte a bien été crée"
                 );
-            }catch(\Exception $e){
+            } catch (\Exception $e) {
                 $this->addFlash(
                     'danger',
                     "Nom ou mail deja utilisé"
                 );
             }
-          //  return $this->redirectToRoute('auth_login', [], Response::HTTP_SEE_OTHER);
+            //  return $this->redirectToRoute('auth_login', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('security/sub_user.html.twig', [
@@ -80,7 +80,7 @@ class AuthController extends AbstractController
     /**
      * @Route("/logout", name="logout")
      */
-    public function logout():void
+    public function logout(): void
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
@@ -91,21 +91,21 @@ class AuthController extends AbstractController
      * @param MailerInterface $mailer
      * @return Response
      */
-    public function forgetPassword(Request $request,UserRepository $userRepository, MailerInterface $mailer)
+    public function forgetPassword(Request $request, UserRepository $userRepository, MailerInterface $mailer)
     {
         $user = new User();
         $form = $this->createForm(ForgotPasswordType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $userRepository->findOneBy(array('email' => $user->getEmail()));
-            if($user){
+            if ($user) {
                 $user->setToken(md5(random_bytes(10)));
                 $userRepository->add($user);
                 $message = (new TemplatedEmail())
                     ->subject('SnowTricks - Réinitilisation du mot de passe')
                     ->from('noreply@snowtricks.com')
                     ->to("ths.rousse@gmail.com")
-                    ->htmlTemplate( 'emails/reset.html.twig')
+                    ->htmlTemplate('emails/reset.html.twig')
                     ->context(['user' => $user]);
                 try {
                     $mailer->send($message);
@@ -134,21 +134,20 @@ class AuthController extends AbstractController
      * @param UserPasswordEncoderInterface $encoder
      * @return Response
      */
-    public function resetPassword(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher){
+    public function resetPassword(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher)
+    {
         if ($request->query->has('username'))
             $username = $request->query->get('username');
         if ($request->query->has('token'))
             $token = $request->query->get('token');
 
         $user = $userRepository->findOneBy(array('username' => $username));
-        $form = $this->createForm(PasswordResetType::class, $user);
+        $form = $this->createForm(PasswordResetType::class);
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
-            if($user->getToken() === $token)
-            {
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($user->getToken() === $token) {
                 $hashedPassword = $passwordHasher->hashPassword(
                     $user,
                     $form->getData()->getPassword()
@@ -161,14 +160,18 @@ class AuthController extends AbstractController
                     "Mot de passe modifié avec succès !"
                 );
 
-            }
-            else
-            {
+            } else {
                 $this->addFlash(
                     'danger',
                     "La modification du mot de passe a échoué ! Le lien de validation a expiré !"
                 );
             }
+        }
+        else {
+            $this->addFlash(
+                'danger',
+                "La modification du mot de passe a échoué !"
+            );
         }
         return $this->renderForm('security/password_form.twig.html', [
             'user' => $user,
@@ -185,16 +188,15 @@ class AuthController extends AbstractController
      * @param UserPasswordEncoderInterface $encoder
      * @return Response
      */
-    public function validUser(Request $request, UserRepository $userRepository,$username, $token, UserPasswordHasherInterface $passwordHasher){
+    public function validUser(Request $request, UserRepository $userRepository, $username, $token, UserPasswordHasherInterface $passwordHasher)
+    {
         $user = $userRepository->findOneBy(array('username' => $username));
         $form = $this->createForm(PasswordResetType::class, $user);
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
-            if($user->getToken() === $token)
-            {
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($user->getToken() === $token) {
                 $user->setEnabled(true);
                 $userRepository->add($user);
 
@@ -202,9 +204,7 @@ class AuthController extends AbstractController
                     'success',
                     "compte activé!"
                 );
-            }
-            else
-            {
+            } else {
                 $this->addFlash(
                     'danger',
                     " Le lien est invalid !"

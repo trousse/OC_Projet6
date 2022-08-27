@@ -21,10 +21,10 @@
             <div id="navbar">
                 <div id="navbar_items_container">
                     <div id="logo_container">
-                        <img id="logo" src="http://placehold.it/350x150">
+                        <a href="{{ path("home_index") }}"><img id="logo" src="{{ asset("logo.png","photos") }}"></a>
                     </div>
                     <div id="menu_container">
-                        <a href="{{ path("home_index") }}">Home</a><span> | </span><a href="{{ path("trick_index") }}">Tricks</a><span> | </span><a href="{{ path("auth_login") }}">Sign in</a><span> | </span><a href="{{ path("auth_register") }}">Sign up</a>
+                        <a href="{{ path("home_index") }}">Home</a><span> | </span><a href="{{ path("trick_new") }}">Create Trick</a><span>|{% if app.user %} </span><a href="{{ path("auth_logout") }}">Sign in</a><span>  {% else %}  </span><a href="{{ path("auth_login") }}">Sign in</a><span> | </span><a href="{{ path("auth_register") }}">Sign up</a>{% endif %}
                     </div>
                 </div>
             </div>

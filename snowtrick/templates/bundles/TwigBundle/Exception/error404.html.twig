@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Error 404{% endblock %}
+
+{% block body %}
+    <section class="hero is-danger">
+        <div class="hero-body">
+            <p class="title">
+                Error 404
+            </p>
+            <p class="subtitle">
+                page that you are asking for doesn't exist
+            </p>
+            <a href="{{ path('home') }}" class="button is-primary">Retour à la page d'accueil</a>
+        </div>
+    </section>
+{% endblock %}

@@ -42,7 +42,7 @@ class TrickType extends AbstractType
                 'attr' => ['class' => 'input'],
             ])
             ->add('save', SubmitType::class, [
-                'attr' => ['class' => 'save button'],
+                'attr' => ['class' => 'save button is-primary'],
             ]);
         ;
     }
