@@ -52,9 +52,9 @@ class Trick
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\TrickGroup", inversedBy="tricks")
-     * @ORM\JoinColumn(name="groupId", referencedColumnName="id")
+     * @ORM\JoinColumn(name="groupe", referencedColumnName="id")
      */
-    private $groupeId;
+    private $groupe;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist"})
@@ -122,14 +122,14 @@ class Trick
         return $this;
     }
 
-    public function getGroupeId(): ?TrickGroup
+    public function getGroupe(): ?TrickGroup
     {
-        return $this->groupeId;
+        return $this->groupe;
     }
 
-    public function setGroupeId(?TrickGroup $groupeId): self
+    public function setGroupe(?TrickGroup $groupe): self
     {
-        $this->groupeId = $groupeId;
+        $this->groupe = $groupe;
 
         return $this;
     }

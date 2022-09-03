@@ -26,14 +26,13 @@
                         <p>Modifing date : <strong>{{ trick.modifingDate|date("m/d/Y") }}</strong></p>
                     </div>
                     <div class="card-footer-item">
-                        <p>Groupe: <strong>Diver</strong></p>
+                        <p>Groupe: <strong>{{ trick.groupe.name }}</strong></p>
                     </div>
                 </div>
             </div>
             {% if app.user %}
             <hr>
                 <div id="add_comment_container" class="box">
-
                     {{ form_start(form) }}
                     <h2>Trick's mains infos</h2>
                     {{ form_label(form.content,'') }}

@@ -44,7 +44,7 @@ class AuthController extends AbstractController
     /**
      * @Route("/signup", name="register")
      */
-    public function signup(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher): Response
+    public function signup(Request $request, UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher, MailerInterface $mailer): Response
     {
         $user = new User();
         $form = $this->createForm(UserSubformType::class, $user);
@@ -57,10 +57,23 @@ class AuthController extends AbstractController
                     $form->getData()->getPassword()
                 );
                 $user->setPassword($hashedPassword);
+                $user->setEnabled(false);
+                $user->setToken(md5(random_bytes(10)));
                 $userRepository->add($user);
+                $message = (new TemplatedEmail())
+                    ->subject('SnowTricks - Validation email')
+                    ->from('noreply@snowtricks.com')
+                    ->to($user->getEmail())
+                    ->htmlTemplate('emails/valid_register.html.twig')
+                    ->context(['user' => $user]);
+                try {
+                    $mailer->send($message);
+                } catch (TransportExceptionInterface $transportException) {
+                    echo $transportException->getMessage();
+                }
                 $this->addFlash(
                     'success',
-                    "votre compte a bien été crée"
+                    "un message de confirmation à été envoyer sur votre address email. Merci de le valider pour accéder a votre compte"
                 );
             } catch (\Exception $e) {
                 $this->addFlash(
@@ -104,7 +117,7 @@ class AuthController extends AbstractController
                 $message = (new TemplatedEmail())
                     ->subject('SnowTricks - Réinitilisation du mot de passe')
                     ->from('noreply@snowtricks.com')
-                    ->to("ths.rousse@gmail.com")
+                    ->to($user->getEmail())
                     ->htmlTemplate('emails/reset.html.twig')
                     ->context(['user' => $user]);
                 try {
@@ -166,8 +179,7 @@ class AuthController extends AbstractController
                     "La modification du mot de passe a échoué ! Le lien de validation a expiré !"
                 );
             }
-        }
-        else {
+        } else {
             $this->addFlash(
                 'danger',
                 "La modification du mot de passe a échoué !"
@@ -181,40 +193,36 @@ class AuthController extends AbstractController
 
     /**
      * @Route("/valid", name="valid")
-     * @param Request $request
      * @param UserRepository $userRepository
      * @param $username
      * @param $token
-     * @param UserPasswordEncoderInterface $encoder
      * @return Response
      */
-    public function validUser(Request $request, UserRepository $userRepository, $username, $token, UserPasswordHasherInterface $passwordHasher)
+    public function validUser(Request $request, UserRepository $userRepository)
     {
+        if ($request->query->has('username'))
+            $username = $request->query->get('username');
+        if ($request->query->has('token'))
+            $token = $request->query->get('token');
         $user = $userRepository->findOneBy(array('username' => $username));
-        $form = $this->createForm(PasswordResetType::class, $user);
 
-        $form->handleRequest($request);
+        if ($user->getToken() === $token) {
+            $user->setEnabled(true);
+            $userRepository->add($user);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($user->getToken() === $token) {
-                $user->setEnabled(true);
-                $userRepository->add($user);
-
-                $this->addFlash(
-                    'success',
-                    "compte activé!"
-                );
-            } else {
-                $this->addFlash(
-                    'danger',
-                    " Le lien est invalid !"
-                );
-            }
+            $this->addFlash(
+                'success',
+                "compte activé!"
+            );
+        } else {
+            $this->addFlash(
+                'danger',
+                " Le lien est invalid !"
+            );
         }
 
         return $this->redirectToRoute('auth_login', [
             'user' => $user,
-            'form' => $form,
         ]);
     }
 }
