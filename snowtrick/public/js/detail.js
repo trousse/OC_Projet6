@@ -69,15 +69,4 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
         });
     }
-
-    const trick_title = document.querySelector("#trick_title");
-    trick_title.addEventListener('input', () => {
-        let data = new FormData();
-        data.append('name', trick_title.innerHTML);
-
-        fetch(trick_title.dataset.path, {
-            method: 'POST',
-            body: data
-        });
-    });
 });

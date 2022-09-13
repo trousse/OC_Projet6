@@ -6,11 +6,11 @@
     <div id="home-bg">
         <h1>Share our passion !</h1>
         <a href="#tricks">
-            <div id="arrow_down" class="arrow"><i class="fa-solid fa-chevron-down"></i></div>
+            <div id="arrow_down" class="arrow is-hidden-mobile"><i class="fa-solid fa-chevron-down"></i></div>
         </a>
     </div>
     <a href="#navbar">
-        <div id="arrow_up" class="arrow"><i class="fa-solid fa-chevron-up"></i></div>
+        <div id="arrow_up" class="arrow is-hidden-mobile"><i class="fa-solid fa-chevron-up"></i></div>
     </a>
 
 {% endblock %}
@@ -18,7 +18,7 @@
 {% block body %}
     <div id="tricks" class="container columns is-multiline is-variable is-3">
         {% for trick in tricks %}
-            <div id="trick_{{ trick.id }}" class="is-4 is-1-mobile column">
+            <div id="trick_{{ trick.id }}" class="is-4 is-12-mobile column">
                 <div class="card">
                     {% if app.user %}
                         <a class="edit" href="{{ path("trick_edit",{"id" : trick.id}) }}">

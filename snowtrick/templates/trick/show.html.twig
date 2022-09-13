@@ -31,7 +31,7 @@
                 </div>
             </div>
             {% if app.user %}
-            <hr>
+                <hr>
                 <div id="add_comment_container" class="box">
                     {{ form_start(form) }}
                     <h2>Trick's mains infos</h2>
@@ -58,11 +58,11 @@
             </div>
 
             {% if trick.comments|length > 3 %}
-            <div class="text-center">
-                <button id="comment_more_button" class="btn button is-info is-outlined">
-                    Voir plus de commentaire
-                </button>
-            </div>
+                <div class="text-center">
+                    <button id="comment_more_button" class="btn button is-info is-outlined">
+                        Voir plus de commentaire
+                    </button>
+                </div>
             {% endif %}
         </div>
     </div>

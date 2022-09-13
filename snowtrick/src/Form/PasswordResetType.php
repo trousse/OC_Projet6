@@ -15,7 +15,7 @@ class PasswordResetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('password',PasswordType::class)
+            ->add('password', PasswordType::class)
             ->add('save', SubmitType::class, [
                 'label' => 'Create account',
                 'attr' => ['class' => 'mt-3 btn'],

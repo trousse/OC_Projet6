@@ -17,13 +17,12 @@ class UserSubformType extends AbstractType
         $builder
             ->add('username')
             ->add('email')
-            ->add('password',PasswordType::class)
-            ->add('save', SubmitType::class, ['label' => 'Create account'])
-        ;
+            ->add('password', PasswordType::class)
+            ->add('save', SubmitType::class, ['label' => 'Create account']);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
-    {   
+    {
         $resolver->setDefaults([
             'data_class' => User::class,
         ]);

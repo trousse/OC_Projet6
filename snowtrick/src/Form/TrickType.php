@@ -27,15 +27,15 @@ class TrickType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class,[
-                "label"=> "Trick Name",
+            ->add('name', TextType::class, [
+                "label" => "Trick Name",
                 'attr' => ['class' => 'input'],
             ])
-            ->add('description', TextareaType::class,[
+            ->add('description', TextareaType::class, [
                 "label" => "Description",
                 'attr' => ['class' => 'input'],
             ])
-            ->add('groupe',EntityType::class,[
+            ->add('groupe', EntityType::class, [
                 'label' => "Groupe",
                 'choice_label' => "name",
                 'class' => TrickGroup::class,
@@ -43,8 +43,7 @@ class TrickType extends AbstractType
             ])
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'save button is-primary'],
-            ]);
-        ;
+            ]);;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

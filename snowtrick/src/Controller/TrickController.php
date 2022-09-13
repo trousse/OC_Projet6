@@ -222,7 +222,7 @@ class TrickController extends AbstractController
         $name = $request->request->get('name');
         if (!empty($name)) {
 
-            if(!empty($trickRepository->findOneBy(["name" => $name]))) $trick->setName($name);
+            if (!empty($trickRepository->findOneBy(["name" => $name]))) $trick->setName($name);
             $trickRepository->add($trick);
             return new JsonResponse(['status' => 'OK', 201]);
         } else {

@@ -20,7 +20,8 @@ class HomeController extends AbstractController
      * Class HomeController
      * @Route("/home", name="index")
      */
-    function home(Request $request, TrickRepository $trickRepository){
+    function home(Request $request, TrickRepository $trickRepository)
+    {
         $request->query->get("data");
 
         return $this->render('trick/index.html.twig', [

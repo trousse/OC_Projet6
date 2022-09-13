@@ -11,7 +11,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
-
 /**
  * @ORM\Entity(repositoryClass=TrickRepository::class)
  * @UniqueEntity("name")
@@ -78,12 +77,13 @@ class Trick
     private $comments;
 
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->images = new ArrayCollection();
         $this->videos = new ArrayCollection();
         $this->comments = new ArrayCollection();
-        $this->creatingDate =  new \DateTime();
-        $this->modifingDate =  new \DateTime();
+        $this->creatingDate = new \DateTime();
+        $this->modifingDate = new \DateTime();
     }
 
     public function getId(): ?int

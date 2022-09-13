@@ -29,10 +29,6 @@ class AuthController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
-
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
@@ -81,7 +77,6 @@ class AuthController extends AbstractController
                     "Nom ou mail deja utilisé"
                 );
             }
-            //  return $this->redirectToRoute('auth_login', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('security/sub_user.html.twig', [
