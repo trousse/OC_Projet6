@@ -1,32 +1,35 @@
-body{
+body {
   background-color: #37474f;
 }
-#navbar{
+
+#navbar {
   background-color: white;
 }
-#main_container{
+
+#main_container {
   position: relative;
 }
 
-.trash_btn{
+.trash_btn {
   font-weight: bold;
   text-align: right;
 }
 
-.trash_container{
+.trash_container {
   text-align: right;
   margin-top: 10px;
 }
 
-.file_input{
-  position:absolute;
+.file_input {
+  position: absolute;
   top: -1000px;
 }
 
-.box{
+.box {
   margin-bottom: 50px !important;
   background-color: #eceff1 !important;
-  h2{
+
+  h2 {
     font-size: 26px;
     font-weight: bold;
     color: #424242;
@@ -37,7 +40,7 @@ body{
   }
 }
 
-.label_container{
+.label_container {
   width: 80%;
   height: 80%;
   background-color: $blue;
@@ -51,13 +54,13 @@ body{
   cursor: pointer;
 }
 
-.label_container:hover{
+.label_container:hover {
   border: 2px solid black;
   background-color: white;
   color: black;
 }
 
-#footer{
+#footer {
   padding: 30px;
   color: $blue;
   background-color: white;
@@ -65,7 +68,7 @@ body{
   margin-top: 50px;
 }
 
-.btn{
+.btn {
   background-color: $blue !important;
   color: white !important;
   font-weight: bold !important;
@@ -74,10 +77,10 @@ body{
   font-size: 18px !important;
 }
 
-.btn:hover{
-  background-color: lighten($blue,10) !important;
+.btn:hover {
+  background-color: lighten($blue, 10) !important;
 }
 
-#logo{
-   width: 280px;
+#logo {
+  width: 280px;
 }

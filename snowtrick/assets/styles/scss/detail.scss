@@ -1,16 +1,16 @@
-#from_container{
+#from_container {
   width: 100%;
   position: relative;
 }
 
-#icones_container{
+#icones_container {
   position: absolute;
   right: 10px;
   top: -50px;
   font-size: 24px;
 }
 
-.icone{
+.icone {
   border-radius: 5px;
   margin-right: 2px;
   display: inline;
@@ -19,31 +19,34 @@
   background-color: #5eb5e0;
 }
 
-.icone:hover{
+.icone:hover {
   cursor: pointer;
   border: 2px solid black;
   background-color: white;
   color: black;
 }
 
-#add_video_modal{
-  .box{
+#add_video_modal {
+  .box {
     text-align: right;
-    #add_video{
-        width: 80%;
+
+    #add_video {
+      width: 80%;
     }
   }
 }
 
-#main_image_container{
+#main_image_container {
   margin-top: 100px;
   width: 100%;
   position: relative;
   margin-bottom: 50px;
-  img{
+
+  img {
     width: 100%;
   }
-  .overlay{
+
+  .overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -53,7 +56,7 @@
     z-index: 0;
     text-align: center;
 
-    h1{
+    h1 {
       font-size: 35px;
       font-weight: bold;
       padding-top: 15%;
@@ -62,22 +65,25 @@
   }
 }
 
-#illustration_container{
+#illustration_container {
   width: 100%;
   margin-top: 10px;
   margin-left: 0;
   flex-wrap: wrap;
-  .img_container{
+
+  .img_container {
     width: 100%;
-    img{
+
+    img {
       width: 100%;
     }
   }
 }
 
-.editable{
+.editable {
   position: relative;
-  .icone{
+
+  .icone {
     position: absolute;
     right: 5px;
     top: 5px;
@@ -86,11 +92,11 @@
 
 }
 
-.trash{
+.trash {
   background-color: firebrick;
 }
 
-.trick_illustration_container{
+.trick_illustration_container {
   height: 200px;
   overflow: hidden;
   display: flex !important;
@@ -98,37 +104,41 @@
   align-items: center;
 }
 
-#video_container{
+#video_container {
   flex-wrap: wrap;
   margin-left: 0;
 }
-.text-center{
+
+.text-center {
   text-align: center;
 }
-#main_infos_container{
-  button{
+
+#main_infos_container {
+  button {
     margin-top: 20px;
   }
 }
 
-#infos_container{
+#infos_container {
   margin-top: 10px;
   padding-left: 10px;
-  div{
+
+  div {
     display: flex;
     justify-content: center;
     align-items: center;
   }
 }
 
-hr{
+hr {
   background-color: #5eb5e0 !important;
 }
 
-#comments{
-  .card{
+#comments {
+  .card {
     margin-bottom: 15px;
-    .card-footer{
+
+    .card-footer {
       display: flex;
       justify-content: space-between;
       padding: 10px 20px;
@@ -136,34 +146,35 @@ hr{
   }
 }
 
-#info-form-container{
+#info-form-container {
   margin-top: 100px;
-  .col{
+
+  .col {
     margin-top: 10px;
   }
 
-  label{
+  label {
     font-weight: bold;
     font-size: 18px;
     color: #424242;
   }
 
-  #trick_save{
+  #trick_save {
     margin: 10px auto;
     width: 200px;
     display: block;
 
   }
 
-  #trick_description{
+  #trick_description {
     min-height: 300px;
   }
 }
 
 
-#add_comment_container{
-  form{
-    textarea{
+#add_comment_container {
+  form {
+    textarea {
       min-height: 150px;
     }
   }

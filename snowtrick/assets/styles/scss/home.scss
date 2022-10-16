@@ -1,9 +1,10 @@
 
-body{
+body {
   position: relative;
   padding-top: 20px;
 }
-.arrow{
+
+.arrow {
   border: none;
   border-radius: 50%;
   font-size: 32px;
@@ -12,7 +13,8 @@ body{
   height: fit-content;
   position: absolute;
 }
-#arrow_up{
+
+#arrow_up {
   position: absolute;
   bottom: 100px;
   right: 30px;
@@ -20,7 +22,7 @@ body{
   color: #37474f;
 }
 
-#arrow_down{
+#arrow_down {
   background-color: #37474f;
   color: white;
   right: 30px;
@@ -36,7 +38,8 @@ body{
   max-height: 800px;
   height: calc(100vh - 100px);
   position: relative;
-  h1{
+
+  h1 {
     position: absolute;
     top: 25%;
     left: 66%;
@@ -47,42 +50,49 @@ body{
   }
 }
 
-#tricks{
+#tricks {
   padding-top: 30px;
-  .edit{
+
+  .edit {
     position: absolute;
     top: 5px;
     right: 40px;
     z-index: 1;
   }
-  .trash{
+
+  .trash {
     position: absolute;
     top: 5px;
     right: 5px;
     z-index: 1;
   }
-  a{
+
+  a {
     cursor: pointer;
     position: relative;
     color: #37474f;
   }
-  a:hover{
+
+  a:hover {
     color: white;
     font-weight: bold;
   }
-  .card:hover{
+
+  .card:hover {
     background-color: $blue;
     transition: 500ms ease-out;
   }
 
-  img{
+  img {
     width: 100%;
   }
-  .card-content{
+
+  .card-content {
     display: table;
     height: 100px;
     width: 100%;
-    div{
+
+    div {
       display: table-cell;
       vertical-align: middle;
       text-align: center;
@@ -93,6 +103,6 @@ body{
   }
 }
 
-#more_trick_button{
+#more_trick_button {
   padding-bottom: 40px;
 }
