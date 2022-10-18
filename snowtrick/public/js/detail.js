@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-
-        // add event on trigger button
+    // add event on trigger button
     function activeTrashButton() {
         const trash_btn = document.querySelectorAll(".trash_btn");
         trash_btn.forEach((trash) => {
@@ -24,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const send_video = document.querySelector("#send_video");
     send_video.addEventListener('click', (event) => {
         let data = new FormData();
-        data.append('url',document.querySelector('#add_video').value);
+        data.append('url', document.querySelector('#add_video').value);
 
         fetch(send_video.dataset.path, {
             method: 'POST',
@@ -52,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const edit_main_image = document.querySelector('#edit_main_image');
-    if(edit_main_image){
+    if (edit_main_image) {
         edit_main_image.addEventListener('change', (file) => {
             let data = new FormData();
             data.append('image', edit_main_image.files[0]);
@@ -61,8 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: data
             }).then(response => response.json())
                 .then(data => {
-                    if(data.status === 'OK'){
-                        document.querySelector("#main_img").src =  "/images/photos/trick_"+ data.id +"/"+data.name;
+                    if (data.status === 'OK') {
+                        document.querySelector("#main_img").src = "/images/photos/trick_" + data.id + "/" + data.name;
                         document.querySelector("#add_image_container").insertAdjacentHTML('afterend', data.html);
                         activeTrashButton();
                     }
