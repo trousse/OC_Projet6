@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    <div class="auth_container" id="sub_body">
+        <h1> Registration </h1>
+        <div class="auth_form_container">
+            <div class="auth_card card">
+                <div id="sub_container">
+                    {{ form(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

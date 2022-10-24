@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Error{% endblock %}
+
+{% block body %}
+    <section class="hero is-danger">
+        <div class="hero-body">
+            <p class="title">
+                Error
+            </p>
+            <p class="subtitle">
+                Error occur we couldn't respond to your request
+            </p>
+            <a href="{{ path('home') }}" class="button is-primary">Retour à la page d'accueil</a>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,10 @@
+<div id="video_{{ video.id }}" class="column is-4 trick_video_container">
+    <div class="img_container editable">
+        {% if editMode %}
+            {% include 'trick/include/trash.twig' with {'id':video.id, 'entity':'video', 'path': path("trick_delete_video", {"id" : video.id}) } %}
+        {% endif %}
+        <iframe
+                src="https://www.youtube.com/embed/{{ video.url }}">
+        </iframe>
+    </div>
+</div>

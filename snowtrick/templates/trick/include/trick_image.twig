@@ -1,0 +1,8 @@
+<div id="image_{{ image.id }}" class="column is-3 trick_illustration_container">
+    <div class="img_container editable">
+        {% if editMode %}
+            {% include 'trick/include/trash.twig' with {'id':image.id,'entity':'image','path': path("trick_delete_image",{"id" : image.id})} %}
+        {% endif %}
+        <img src="{{ asset("trick_" ~ trick.id ~ "/" ~ image.name,"photos") }}" alt="{{ image.name }}"/>
+    </div>
+</div>
