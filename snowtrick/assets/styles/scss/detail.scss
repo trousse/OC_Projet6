@@ -168,3 +168,16 @@ hr{
     }
   }
 }
+
+.comment_footer{
+  img{
+    vertical-align: middle;
+    margin-right: 10px;
+  }
+  span{
+    vertical-align: middle;
+  }
+  strong{
+    vertical-align: sub;
+  }
+}

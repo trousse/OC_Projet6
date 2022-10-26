@@ -47,11 +47,12 @@
         "symfony/webpack-encore-bundle": "^1.12",
         "symfony/yaml": "5.4.*",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^2.12|^3.0",
+        "yohang88/letter-avatar": "^2.1"
     },
     "require-dev": {
         "symfony/debug-bundle": "5.4.*",
-        "symfony/maker-bundle": "^1.38",
+        "symfony/maker-bundle": "^1.37",
         "symfony/stopwatch": "5.4.*",
         "symfony/web-profiler-bundle": "5.4.*"
     },

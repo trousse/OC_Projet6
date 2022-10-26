@@ -75,6 +75,7 @@ class TrickController extends AbstractController
             $commmentRepository->add($comment);
         }
 
+
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
             'form' => $form->createView()
@@ -251,6 +252,21 @@ class TrickController extends AbstractController
         try {
             $videoRepository->remove($video);
             return new JsonResponse($video);
+        } catch (\Exception $exception) {
+            dump($exception);
+        }
+
+        return new JsonResponse();
+    }
+
+    /**
+     * @Route("/delete/Comment/{id}", name="delete_comment", methods={"POST"})
+     */
+    public function deleteComment(Request $request, Comment $comment, CommentRepository $commentRepository): Response
+    {
+        try {
+            $commentRepository->remove($comment);
+            return new JsonResponse($comment);
         } catch (\Exception $exception) {
             dump($exception);
         }
