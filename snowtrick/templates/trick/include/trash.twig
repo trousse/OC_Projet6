@@ -1,0 +1,19 @@
+<div id="modal-{{ entity }}-{{ id }}" class="modal">
+    <div class="modal-background"></div>
+
+    <div class="modal-content">
+        <div class="box">
+            <p>Etes vous sur de vouloir supprimer cette {{ entity }}</p>
+            <div class="trash_container">
+                <button class="button is-danger trash_btn" data-id="{{ id }}" data-entity="{{ entity }}"
+                        data-path="{{ path }}" data-method="POST" }>Supprimer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
+<button class="js-modal-trigger icone trash" data-target="modal-{{ entity }}-{{ id }}">
+    <i class="fa-solid fa-trash"></i>
+</button>

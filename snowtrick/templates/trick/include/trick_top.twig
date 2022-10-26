@@ -1,0 +1,75 @@
+<div id="main_image_container">
+    <div class="img_container editable">
+        <img id="main_img"
+             src="{% if trick.mainImage %} {{ asset("trick_" ~ trick.slug ~ "/" ~ trick.mainImage,"photos") }}{% else %}{{ asset("default.png","photos") }}{% endif %}"
+             alt="tricksImage"/>
+        <div class="overlay">
+            {% if editMode %}
+                <div id="edit_main_image_container" class="column is-3 trick_illustration_container">
+                    <label for="edit_main_image">
+                        <div class="icone"><i class="fa-solid fa-pen-to-square"></i></div>
+                    </label>
+                    <input id="edit_main_image" data-path="{{ path("trick_ajax_upload_main_image",{'id' : trick.id}) }}"
+                           class="file_input"
+                           type="file" accept="image/png"/>
+                </div>
+            {% endif %}
+            <h1 id="trick_title" data-path="{{ path("trick_ajax_edit_name",{'id' : trick.id}) }}">{{ trick.name }}</h1>
+        </div>
+    </div>
+</div>
+<div class="box">
+    <h2>Trick's images</h2>
+    <div id="illustration_container" class="columns">
+        {% if editMode %}
+            <div id="add_image_container" class="column is-3 trick_illustration_container">
+                <label class="label_container" for="add_image">
+                    <div><i class="fa-solid fa-plus"></i></div>
+                </label>
+                <input id="add_image" data-path="{{ path("trick_ajax_upload_image",{'id' : trick.id}) }}"
+                       class="file_input"
+                       type="file" accept="image/*"/>
+            </div>
+        {% endif %}
+        {% if trick %}
+            {% for image in trick.images|reverse %}
+                {% include 'trick/include/trick_image.twig' with {'image':image} %}
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+<div class="box">
+    <h2>Trick's videos</h2>
+    <div id="video_container" class="container columns">
+        {% if editMode %}
+            <div id="add_video_container" class="column is-3 trick_illustration_container">
+                <label class="label_container js-modal-trigger" data-target="add_video_modal" for="add_video">
+                    <div><i class="fa-solid fa-plus"></i></div>
+                </label>
+            </div>
+            <div id="add_video_modal" class="modal">
+                <div class="modal-background"></div>
+                <div class="modal-content">
+                    <div class="box">
+                        <div id="video_input">
+                            <input id="add_video" type="text"/>
+                            <button id="send_video" data-path="{{ path("trick_ajax_upload_video",{'id' : trick.id}) }}">
+                                Send Video
+                            </button>
+                        </div>
+                        <div class="mt-1">
+                            paste youtube video code
+                        </div>
+                    </div>
+                </div>
+                <button class="modal-close is-large" aria-label="close"></button>
+            </div>
+        {% endif %}
+        {% if trick %}
+            {% for video in trick.videos %}
+                {% include 'trick/include/trick_video.twig' with {'video':video} %}
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>

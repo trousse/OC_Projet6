@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Trick index{% endblock %}
+
+{% block top %}
+    <div id="home-bg">
+        <h1>Share our passion !</h1>
+        <a href="#tricks">
+            <div id="arrow_down" class="arrow is-hidden-mobile"><i class="fa-solid fa-chevron-down"></i></div>
+        </a>
+    </div>
+    <a href="#navbar">
+        <div id="arrow_up" class="arrow is-hidden-mobile"><i class="fa-solid fa-chevron-up"></i></div>
+    </a>
+
+{% endblock %}
+
+{% block body %}
+    <div id="tricks" class="container columns is-multiline is-variable is-3">
+        {% for trick in tricks %}
+            <div id="trick_{{ trick.id }}" class="is-4 is-1-mobile column">
+                <div class="card">
+                    {% if app.user %}
+                        <a class="edit" href="{{ path("trick_edit",{"id" : trick.id}) }}">
+                            <div class="icone"><i class="fa-solid fa-pen-to-square"></i></div>
+                        </a>
+                        {% include 'trick/include/trash.twig' with {'id':trick.id,'entity':'trick','path': path("trick_delete_trick",{"id" : trick.id})} %}
+                    {% endif %}
+                    <a href="{{ path("trick_show",{"slug" : trick.slug}) }}">
+                        <div class="card-image">
+                            <figure class="image is-4by3">
+                                <img src="{% if trick.mainImage %} {{ asset("trick_" ~ trick.slug ~ "/" ~ trick.mainImage,"photos") }}{% else %}{{ asset("default.png","photos") }}{% endif %}"
+                                     alt="trick image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div>{{ trick.name | upper }}</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div id="more_trick_button" class=has-text-centered>
+        <button class="btn button">More trick</button>
+    </div>
+{% endblock %}

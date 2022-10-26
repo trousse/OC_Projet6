@@ -1,0 +1,55 @@
+.auth_container {
+  height: 100vh;
+
+  h1 {
+    text-align: center;
+    font-size: 30px;
+    padding: 40px 0;
+    color: white;
+    font-weight: bold;
+  }
+
+  .auth_form_container {
+    text-align: center;
+
+    label {
+      font-weight: bold;
+      font-size: 16px;
+      margin: 0 20px;
+      width: 100%;
+    }
+
+    input {
+      display: block;
+      margin: 0 auto;
+      width: 300px;
+    }
+
+    button {
+      width: 300px;
+      background-color: $primary;
+      color: white;
+      padding: 10px 0;
+      border: none;
+      cursor: pointer;
+      margin-bottom: 20px;
+      font-weight: bold;
+      font-size: 22px;
+    }
+
+    & > div {
+      margin-top: 40px;
+    }
+
+
+    #user_subform > div, #login_subform > div {
+      margin-top: 40px;
+    }
+
+    .auth_card {
+      margin: 0 auto;
+      padding: 20px 10px;
+      width: 400px;
+    }
+  }
+}

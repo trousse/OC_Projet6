@@ -21,6 +21,10 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
+    .addEntry('detail','/assets/js/detail.js')
+    .addEntry('main','/assets/js/main.js')
+    .addStyleEntry('Bulma', './assets/styles/scss/bulmaStyle.scss')
+
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
@@ -32,6 +36,7 @@ Encore
     // but, you probably want this, unless you're building a single-page app
     .enableSingleRuntimeChunk()
 
+    .enableSassLoader()
     /*
      * FEATURE CONFIG
      *
@@ -56,7 +61,7 @@ Encore
     })
 
     // enables Sass/SCSS support
-    //.enableSassLoader()
+    .enableSassLoader()
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()

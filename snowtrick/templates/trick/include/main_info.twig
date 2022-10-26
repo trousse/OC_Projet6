@@ -1,0 +1,20 @@
+{{ form_start(form) }}
+<div class="trick-from-error">
+    {{ form_errors(form) }}
+</div>
+
+<div id="info-form-container" class="box">
+    <h2>trick's mains infos</h2>
+    <div class="col">
+        {{ form_row(form.name) }}
+    </div>
+    <div class="col" id="some-custom-id">
+        {{ form_row(form.groupe) }}
+    </div>
+    <div class="col" id="some-custom-id">
+        {{ form_row(form.description) }}
+    </div>
+
+    {{ form_row(form.save, { 'label': 'Submit me' }) }}
+</div>
+{{ form_end(form) }}

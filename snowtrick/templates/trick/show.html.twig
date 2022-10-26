@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Trick{% endblock %}
+
+{% block body %}
+    <div id="from_container" class="container">
+        {% if app.user %}
+            <div id="icones_container">
+                <a href="{{ path("trick_edit",{"id" : trick.id}) }}">
+                    <div class="icone"><i class="fa-solid fa-pen-to-square"></i></div>
+                </a>
+                <a href="{{ path("trick_delete",{"id" : trick.id}) }}">
+                    <div class="icone trash"><i class="fa-solid fa-trash"></i></div>
+                </a>
+            </div>
+        {% endif %}
+        {% include 'trick/include/trick_top.twig' with {'editMode':false} %}
+        <div id="main_infos_container">
+            <div class="card">
+                <article class="card-content">
+                    {{ trick.description }}
+                </article>
+                <div id="infos_container" class="card-footer">
+                    <div class="card-footer-item">
+                        <p>Creating date : <strong>{{ trick.creatingDate|date("m/d/Y") }}</strong></p>
+                    </div>
+                    <div class="card-footer-item">
+                        <p>Modifing date : <strong>{{ trick.modifingDate|date("m/d/Y") }}</strong></p>
+                    </div>
+                    <div class="card-footer-item">
+                        <p>Groupe: <strong>{{ trick.groupe.name }}</strong></p>
+                    </div>
+                </div>
+            </div>
+            {% if app.user %}
+                <hr>
+                <div id="add_comment_container" class="box">
+                    {{ form_start(form) }}
+                    <h2>Trick's mains infos</h2>
+                    {{ form_label(form.content,'') }}
+                    {{ form_widget(form.content) }}
+                    <div class="has-text-right">
+                        {{ form_widget(form.save, { 'label': 'Submit me'}) }}
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            {% endif %}
+            {% if trick.comments is not empty %}
+                <hr>
+                <div id="comments">
+
+                    {% for comment in trick.comments|reverse %}
+                        <div class="card">
+                            <div class="card-content">
+                                {{ comment.content }}
+                            </div>
+                            <div class="card-footer comment_footer">
+                                <span> <img class="avatar" src="{{ comment.user.username|avatar }}"
+                                            alt="avatar"><strong>{{ comment.user.username }}</strong></span>
+                                <span><strong>{{ comment.createdDate|date("m/d/Y") }}</strong></span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                {% if trick.comments|length > 3 %}
+                    <div class="text-center">
+                        <button id="comment_more_button" class="btn button is-info is-outlined">
+                            Voir plus de commentaire
+                        </button>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
