@@ -55,7 +55,8 @@
                                 {{ comment.content }}
                             </div>
                             <div class="card-footer comment_footer">
-                                <span> <img class="avatar" src="{{ comment.user.username|avatar }}" alt="avatar"><strong>{{ comment.user.username }}</strong></span>
+                                <span> <img class="avatar" src="{{ comment.user.username|avatar }}"
+                                            alt="avatar"><strong>{{ comment.user.username }}</strong></span>
                                 <span><strong>{{ comment.createdDate|date("m/d/Y") }}</strong></span>
                             </div>
                         </div>

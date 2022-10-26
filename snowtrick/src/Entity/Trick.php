@@ -100,7 +100,7 @@ class Trick
         $this->name = $name;
         $slugger = new AsciiSlugger();
         $new_slug = $slugger->slug($name);
-        if(isset($this->slug) && file_exists(__DIR__.'/../../public/images/photos/trick_'.$this->slug)) rename(__DIR__.'/../../public/images/photos/trick_'.$this->slug, __DIR__.'/../../public/images/photos/trick_'.$new_slug);
+        if (isset($this->slug) && file_exists(__DIR__ . '/../../public/images/photos/trick_' . $this->slug)) rename(__DIR__ . '/../../public/images/photos/trick_' . $this->slug, __DIR__ . '/../../public/images/photos/trick_' . $new_slug);
         $this->slug = $new_slug;
 
         return $this;
@@ -135,7 +135,7 @@ class Trick
         return $this;
     }
 
-    public function getMainImage(): ?String
+    public function getMainImage(): ?string
     {
         return $this->mainImage;
     }

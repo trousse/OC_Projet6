@@ -47,9 +47,9 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
         // $product = new Product();
         // $manager->persist($product);
         $comments = $this->getComments();
-        foreach ($comments as $comment){
-            $user = $this->getReference(UserFixtures::USER_REF.$comment['user']);
-            $trick = $this->getReference(TrickFixtures::TRICK_REF.$comment['trick']);
+        foreach ($comments as $comment) {
+            $user = $this->getReference(UserFixtures::USER_REF . $comment['user']);
+            $trick = $this->getReference(TrickFixtures::TRICK_REF . $comment['trick']);
 
             $newComment = new Comment();
             $newComment->setContent($comment['content']);

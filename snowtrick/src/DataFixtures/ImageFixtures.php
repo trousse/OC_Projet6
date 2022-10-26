@@ -15,12 +15,12 @@ class ImageFixtures extends Fixture
     {
         // $product = new Product();
         // $manager->persist($product);
-        $imagesNames = scandir(__DIR__.'/images');
-        foreach ($imagesNames as $imageName){
+        $imagesNames = scandir(__DIR__ . '/images');
+        foreach ($imagesNames as $imageName) {
             $newImage = new Image();
 
             $newImage->setName($imageName);
-            $this->addReference(self::IMAGE_REF. $imageName, $newImage);
+            $this->addReference(self::IMAGE_REF . $imageName, $newImage);
             $manager->persist($newImage);
 
         }

@@ -10,7 +10,8 @@ class TrickGroupeFixtures extends Fixture
 {
     public const GROUPE_REF = "groupe_";
 
-    private function getGroupes(){
+    private function getGroupes()
+    {
         return [
             "Grab",
             "Rotation",
@@ -25,11 +26,11 @@ class TrickGroupeFixtures extends Fixture
         // $product = new Product();
         // $manager->persist($product);
         $groupes = $this->getGroupes();
-        foreach ($groupes as $groupe){
+        foreach ($groupes as $groupe) {
             $newGroupe = new TrickGroup();
             $newGroupe->setName($groupe);
 
-            $this->addReference(self::GROUPE_REF. $groupe, $newGroupe);
+            $this->addReference(self::GROUPE_REF . $groupe, $newGroupe);
         }
 
         $manager->flush();

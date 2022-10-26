@@ -110,7 +110,7 @@ class TrickController extends AbstractController
     {
         $this->addFlash(
             'success',
-            "Trick ". $trick->getName() ." supprimer"
+            "Trick " . $trick->getName() . " supprimer"
         );
         $trickRepository->remove($trick);
 
@@ -231,7 +231,7 @@ class TrickController extends AbstractController
     public function deleteImage(Request $request, Image $image, ImageRepository $imageRepository): Response
     {
         try {
-            unlink(__DIR__.'/../../public/images/photos/trick_'.$image->getTrick()->getSlug().'/'.$image->getName());
+            unlink(__DIR__ . '/../../public/images/photos/trick_' . $image->getTrick()->getSlug() . '/' . $image->getName());
             $imageRepository->remove($image);
             $this->addFlash(
                 'success',

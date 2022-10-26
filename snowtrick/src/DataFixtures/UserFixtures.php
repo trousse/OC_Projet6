@@ -60,7 +60,7 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $users = $this->getUsers();
-        foreach ($users as $user){
+        foreach ($users as $user) {
             $newUser = new User();
             $newUser->setEmail($user['email']);
             $newUser->setUsername($user['name']);
@@ -69,9 +69,9 @@ class UserFixtures extends Fixture
             $hashedPassword = $this->passwordHasher->hashPassword($newUser, $user['password']);
 
             $newUser->setPassword($hashedPassword);
-            if(isset($user['roles'])) $newUser->setRoles($user['roles']);
+            if (isset($user['roles'])) $newUser->setRoles($user['roles']);
 
-            $this->addReference(self::USER_REF. $newUser->getUsername(), $newUser);
+            $this->addReference(self::USER_REF . $newUser->getUsername(), $newUser);
 
             $manager->persist($newUser);
         }

@@ -27,8 +27,9 @@
                 <a href="{{ path("home_index") }}"><img id="logo" src="{{ asset("logo.png","photos") }}"></a>
             </div>
             <div id="menu_container">
-                {% if app.user %}<a href="{{ path("trick_new") }}">Create trick</a><span> | {% endif %} </span><a href="{{ path("trick_index") }}">Tricks</a><span> {% if not app.user %}| </span><a
-                        href="{{ path("auth_login") }}">Sign in</a><span> | </span><a
+                {% if app.user %}<a href="{{ path("trick_new") }}">Create trick</a><span> | {% endif %} </span><a
+                        href="{{ path("trick_index") }}">Tricks</a><span> {% if not app.user %}| </span><a
+                    href="{{ path("auth_login") }}">Sign in</a><span> | </span><a
                         href="{{ path("auth_register") }}">Sign up</a>{% endif %}
                 {% if app.user %}<span> | </span><a href="{{ path("auth_logout") }}">Sign out</a>{% endif %}
             </div>

@@ -19,7 +19,7 @@ class VideoFixtures extends Fixture
                 "name" => "Indy",
             ],
             [
-                "id"=> 2,
+                "id" => 2,
                 "url" => "f9FjhCt_w2U",
                 "name" => "Stalefish"
             ],
