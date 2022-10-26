@@ -118,4 +118,3 @@ if (comment.length !== 0) {
     });
 }
 
-

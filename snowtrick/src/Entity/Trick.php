@@ -50,14 +50,13 @@ class Trick
     private $modifingDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\TrickGroup", inversedBy="tricks")
-     * @ORM\JoinColumn(name="groupe", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\TrickGroup", inversedBy="tricks", cascade={"persist"})
+     * @ORM\JoinColumn(name="groupe", referencedColumnName="id", onDelete="CASCADE")
      */
     private $groupe;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist"})
-     * @ORM\JoinColumn(name="mainImage", referencedColumnName="id")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $mainImage;
 
@@ -100,7 +99,9 @@ class Trick
     {
         $this->name = $name;
         $slugger = new AsciiSlugger();
-        $this->slug = $slugger->slug($name);
+        $new_slug = $slugger->slug($name);
+        if(isset($this->slug) && file_exists(__DIR__.'/../../public/images/photos/trick_'.$this->slug)) rename(__DIR__.'/../../public/images/photos/trick_'.$this->slug, __DIR__.'/../../public/images/photos/trick_'.$new_slug);
+        $this->slug = $new_slug;
 
         return $this;
     }
@@ -134,12 +135,12 @@ class Trick
         return $this;
     }
 
-    public function getMainImage(): ?Image
+    public function getMainImage(): ?String
     {
         return $this->mainImage;
     }
 
-    public function setMainImage(?Image $mainImage): self
+    public function setMainImage(?string $mainImage): self
     {
         $this->mainImage = $mainImage;
 

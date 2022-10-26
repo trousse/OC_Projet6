@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/snowtrick.iml" filepath="$PROJECT_DIR$/.idea/snowtrick.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../todo-oc/.idea/todo-oc.iml" filepath="$PROJECT_DIR$/../../../todo-oc/.idea/todo-oc.iml" />
     </modules>
   </component>
 </project>

@@ -25,7 +25,7 @@ class TrickGroup
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Trick", mappedBy="groupe")
+     * @ORM\OneToMany(targetEntity="App\Entity\Trick", mappedBy="groupe",cascade={"persist"})
      */
     private $tricks;
 

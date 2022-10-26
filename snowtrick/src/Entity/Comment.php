@@ -20,12 +20,12 @@ class Comment
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
-     * @ORM\JoinColumn(name="user", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user", referencedColumnName="id", onDelete="CASCADE")
      */
     private $user;
 
     /** @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="comments", cascade={"all"}, fetch="EAGER")
-     * @ORM\JoinColumn(name="trick", referencedColumnName="id")
+     * @ORM\JoinColumn(name="trick", referencedColumnName="id", onDelete="CASCADE")
      */
     private $trick;
 

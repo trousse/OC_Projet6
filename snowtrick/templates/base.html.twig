@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
@@ -15,14 +16,20 @@
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
-    <script src="https://kit.fontawesome.com/efcd29bda4.js" crossorigin="anonymous"></script>
-</head>
-<body>
-{% block navbar %}
-    <div id="navbar" class="is-hidden-mobile">
-        <div id="navbar_items_container">
-            <div id="logo_container">
-                <a href="{{ path("home_index") }}"><img id="logo" src="{{ asset("logo.png","photos") }}"></a>
+
+        <script src="https://kit.fontawesome.com/efcd29bda4.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        {% block navbar %}
+            <div id="navbar">
+                <div id="navbar_items_container">
+                    <div id="logo_container">
+                        <a href="{{ path("home_index") }}"><img id="logo" src="{{ asset("logo.png","photos") }}"></a>
+                    </div>
+                    <div id="menu_container">
+                        <a href="{{ path("trick_new") }}">Create trick</a><span> | </span><a href="{{ path("trick_index") }}">Tricks</a><span> | </span><a href="{{ path("auth_login") }}">Sign in</a><span> | </span><a href="{{ path("auth_register") }}">Sign up</a>
+                    </div>
+                </div>
             </div>
             <div id="menu_container">
                 <a href="{{ path("home_index") }}">Home</a><span> | </span><a href="{{ path("trick_new") }}">Create

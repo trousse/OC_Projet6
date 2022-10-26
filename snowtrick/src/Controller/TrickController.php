@@ -48,6 +48,7 @@ class TrickController extends AbstractController
             $trickRepository->add($trick);
 
             return $this->redirectToRoute('trick_edit', ['id' => $trick->getid()], Response::HTTP_SEE_OTHER);
+
         }
 
         return $this->renderForm('trick/new.html.twig', [
@@ -102,17 +103,21 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/delete", name="delete", methods={"GET"})
+     * @Route("/delete/{id}", name="delete", methods={"GET"})
      */
     public function delete(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
+        $this->addFlash(
+            'success',
+            "Trick ". $trick->getName() ." supprimer"
+        );
         $trickRepository->remove($trick);
 
-        return $this->redirectToRoute('trick_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('home_index', [], Response::HTTP_SEE_OTHER);
     }
 
     /**
-     * @Route("/{id}", name="delete_trick", methods={"POST"})
+     * @Route("/delete/{id}", name="delete_trick", methods={"POST"})
      */
     public function deleteTrick(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
@@ -132,7 +137,7 @@ class TrickController extends AbstractController
         $fileName = md5(uniqid()) . '.' . $file->guessExtension();
 
         $request->files->get('image')->move(
-            '../public/images/photos/trick_' . $trick->getId() . '/',
+            '../public/images/photos/trick_' . $trick->getSlug() . '/',
             $fileName
         );
 
@@ -162,26 +167,15 @@ class TrickController extends AbstractController
         $fileName = md5(uniqid()) . '.' . $file->guessExtension();
 
         $request->files->get('image')->move(
-            '../public/images/photos/trick_' . $trick->getId() . '/',
+            '../public/images/photos/trick_' . $trick->getSlug() . '/',
             $fileName
         );
 
-        $image = new Image();
-        $image->setName($fileName);
-        $image->setTrick($trick);
-        $imageRepository->add($image);
 
-        $image = $imageRepository->findOneBy([], ['id' => 'desc']);
-        $trick->setMainImage($image);
+        $trick->setMainImage($fileName);
         $trickRepository->add($trick);
 
-        $html = $this->renderView('trick/include/trick_image.twig', [
-            'image' => $image,
-            'trick' => $trick,
-            'editMode' => true
-        ]);
-
-        return new JsonResponse(['status' => 'OK', 'name' => $fileName, "id" => $trick->getId(), 'html' => $html], 201);
+        return new JsonResponse(['status' => 'OK', 'name' => $fileName, 'slug' => $trick->getSlug()], 201);
     }
 
     /**
@@ -236,6 +230,7 @@ class TrickController extends AbstractController
     public function deleteImage(Request $request, Image $image, ImageRepository $imageRepository): Response
     {
         try {
+            unlink(__DIR__.'/../../public/images/photos/trick_'.$image->getTrick()->getSlug().'/'.$image->getName());
             $imageRepository->remove($image);
             $this->addFlash(
                 'success',

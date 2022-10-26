@@ -3,6 +3,6 @@
         {% if editMode %}
             {% include 'trick/include/trash.twig' with {'id':image.id,'entity':'image','path': path("trick_delete_image",{"id" : image.id})} %}
         {% endif %}
-        <img src="{{ asset("trick_" ~ trick.id ~ "/" ~ image.name,"photos") }}" alt="{{ image.name }}"/>
+        <img src="{{ asset("trick_" ~ trick.slug ~ "/" ~ image.name,"photos") }}" alt="{{ image.name }}"/>
     </div>
 </div>

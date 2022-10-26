@@ -18,8 +18,8 @@ class Image
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="images")
-     * @ORM\JoinColumn(name="trick", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="images", cascade={"persist"})
+     * @ORM\JoinColumn(name="trick", referencedColumnName="id",onDelete="CASCADE")
      */
     private $trick;
 

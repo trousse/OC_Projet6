@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
         trash_btn.forEach((trash) => {
             trash.addEventListener('click', (event) => {
                 let myInit = {
-                    method: trash.data.method,
+                    method: "POST",
                     headers: {'content-type': 'application/json'}
                 };
 
@@ -47,7 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }).then(response => response.json())
             .then(data => {
                 document.querySelector("#add_image_container").insertAdjacentHTML('afterend', data.html);
-                activeTrashButton();
+                console.log('d')
+                setTimeout(() => activeTrashButton(),1000);
             });
     });
 
@@ -62,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }).then(response => response.json())
                 .then(data => {
                     if(data.status === 'OK'){
-                        document.querySelector("#main_img").src =  "/images/photos/trick_"+ data.id +"/"+data.name;
+                        document.querySelector("#main_img").src =  "/images/photos/trick_"+ data.slug +"/"+data.name;
                         document.querySelector("#add_image_container").insertAdjacentHTML('afterend', data.html);
                         activeTrashButton();
                     }

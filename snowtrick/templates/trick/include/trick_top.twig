@@ -1,8 +1,17 @@
 <div id="main_image_container">
     <div class="img_container editable">
-        <img id="main_img" src="{% if trick.mainImage %} {{ asset("trick_" ~ trick.id ~ "/" ~ trick.mainImage.name,"photos") }}{% else %}{{ asset("default.png","photos") }}{% endif %}"
+        <img id="main_img" src="{% if trick.mainImage %} {{ asset("trick_" ~ trick.slug ~ "/" ~ trick.mainImage,"photos") }}{% else %}{{ asset("default.png","photos") }}{% endif %}"
              alt="tricksImage"/>
         <div class="overlay">
+            {% if editMode %}
+                <div id="edit_main_image_container" class="column is-3 trick_illustration_container">
+                    <label for="edit_main_image">
+                        <div class="icone"><i class="fa-solid fa-pen-to-square"></i></div>
+                    </label>
+                    <input id="edit_main_image" data-path="{{ path("trick_ajax_upload_main_image",{'id' : trick.id}) }}" class="file_input"
+                           type="file" accept="image/png"/>
+                </div>
+            {% endif %}
             <h1 id="trick_title" data-path="{{ path("trick_ajax_edit_name",{'id' : trick.id}) }}">{{ trick.name }}</h1>
         </div>
     </div>
