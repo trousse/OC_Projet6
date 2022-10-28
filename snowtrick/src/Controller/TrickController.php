@@ -38,6 +38,26 @@ class TrickController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/edit", name="edit", methods={"GET", "POST"})
+     * @IsGranted("ROLE_USER")
+     */
+    public function edit(Request $request, Trick $trick, TrickRepository $trickRepository): Response
+    {
+        $form = $this->createForm(TrickType::class, $trick);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $trick->setModifingDate(new \DateTime());
+            $trickRepository->add($trick);
+        }
+
+        return $this->renderForm('trick/edit.html.twig', [
+            'trick' => $trick,
+            'form' => $form
+        ]);
+    }
+
+    /**
      * @Route("/new", name="new", methods={"GET", "POST"})
      * @IsGranted("ROLE_USER")
      */
@@ -50,9 +70,7 @@ class TrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $trickRepository->add($trick);
-
-            return $this->redirectToRoute('trick_edit', ['id' => $trick->getid()], Response::HTTP_SEE_OTHER);
-
+            return $this->redirectToRoute('trick_list', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('trick/new.html.twig', [
@@ -82,7 +100,7 @@ class TrickController extends AbstractController
         }
 
         $page = $request->query->get("page") ? (int)$request->query->get("page") : 1;
-        $comments = $commmentRepository->findBy(['trick' => $trick], ["createdDate" => "desc"], 3, ($page - 1) * 3);
+        $comments = $commmentRepository->findBy(['trick' => $trick], ["createdDate" => "desc"], 10, ($page - 1) * 3);
 
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
@@ -90,30 +108,6 @@ class TrickController extends AbstractController
             'page' => $page,
             'form' => $form->createView()
         ]);
-    }
-
-    /**
-     * @Route("/{id}/edit", name="edit", methods={"GET", "POST"})
-     * @IsGranted("ROLE_USER")
-     */
-    public function edit(Request $request, Trick $trick, TrickRepository $trickRepository): Response
-    {
-        $form = $this->createForm(TrickType::class, $trick);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $trick->setModifingDate(new \DateTime());
-            $trickRepository->add($trick);
-
-            return $this->redirectToRoute('trick_show', ["slug" => $trick->getSlug()], Response::HTTP_SEE_OTHER);
-        }
-
-
-        return $this->renderForm('trick/edit.html.twig', [
-            'trick' => $trick,
-            'form' => $form
-        ]);
-
     }
 
     /**
@@ -307,8 +301,6 @@ class TrickController extends AbstractController
         $commentRepository->add($comment);
         $trick = $comment->getTrick();
         return $this->redirect($this->generateUrl('trick_show', ["slug" => $trick->getSlug()]) . '#comments');
-
-
     }
 
 }
