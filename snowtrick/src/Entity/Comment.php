@@ -24,7 +24,7 @@ class Comment
      */
     private $user;
 
-    /** @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="comments", cascade={"all"}, fetch="EAGER")
+    /** @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="comments", fetch="EAGER")
      * @ORM\JoinColumn(name="trick", referencedColumnName="id")
      */
     private $trick;

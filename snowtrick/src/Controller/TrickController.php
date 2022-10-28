@@ -12,12 +12,15 @@ use App\Repository\CommentRepository;
 use App\Repository\ImageRepository;
 use App\Repository\TrickRepository;
 use App\Repository\VideoRepository;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 
 /**
  * @Route("/trick", name="trick_")
@@ -36,6 +39,7 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/new", name="new", methods={"GET", "POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function new(Request $request, TrickRepository $trickRepository): Response
     {
@@ -62,6 +66,8 @@ class TrickController extends AbstractController
      */
     public function show(Request $request, Trick $trick, CommentRepository $commmentRepository): Response
     {
+
+
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
@@ -75,15 +81,20 @@ class TrickController extends AbstractController
             $commmentRepository->add($comment);
         }
 
+        $page = $request->query->get("page") ? (int)$request->query->get("page") : 1;
+        $comments = $commmentRepository->findBy(['trick' => $trick], ["createdDate" => "desc"], 3, ($page - 1) * 3);
 
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
+            'comments' => $comments,
+            'page' => $page,
             'form' => $form->createView()
         ]);
     }
 
     /**
      * @Route("/{id}/edit", name="edit", methods={"GET", "POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function edit(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
@@ -97,14 +108,17 @@ class TrickController extends AbstractController
             return $this->redirectToRoute('trick_show', ["slug" => $trick->getSlug()], Response::HTTP_SEE_OTHER);
         }
 
+
         return $this->renderForm('trick/edit.html.twig', [
             'trick' => $trick,
             'form' => $form
         ]);
+
     }
 
     /**
      * @Route("/delete/{id}", name="delete", methods={"GET"})
+     * @IsGranted("ROLE_USER")
      */
     public function delete(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
@@ -119,6 +133,7 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/delete/{id}", name="delete_trick", methods={"POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function deleteTrick(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
@@ -130,6 +145,7 @@ class TrickController extends AbstractController
     /**
      * Call only Ajax
      * @Route("/{id}/upload/image", name="ajax_upload_image", methods={"POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function uploadImage(Request $request, Trick $trick, ImageRepository $imageRepository): Response
     {
@@ -160,6 +176,7 @@ class TrickController extends AbstractController
     /**
      * Call only Ajax
      * @Route("/{id}/upload/main", name="ajax_upload_main_image", methods={"POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function uploadMainImage(Request $request, Trick $trick, ImageRepository $imageRepository, TrickRepository $trickRepository): Response
     {
@@ -182,6 +199,7 @@ class TrickController extends AbstractController
     /**
      * Call only Ajax
      * @Route("/{id}/upload/video", name="ajax_upload_video", methods={"POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function uploadVideo(Request $request, Trick $trick, VideoRepository $videoRepository): Response
     {
@@ -211,6 +229,7 @@ class TrickController extends AbstractController
     /**
      * Call only Ajax
      * @Route("/{id}/edit/name", name="ajax_edit_name", methods={"POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function editTrickName(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
@@ -227,6 +246,7 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/delete/image/{id}", name="delete_image", methods={"POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function deleteImage(Request $request, Image $image, ImageRepository $imageRepository): Response
     {
@@ -246,6 +266,7 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/delete/video/{id}", name="delete_video", methods={"POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function deleteVideo(Request $request, Video $video, VideoRepository $videoRepository): Response
     {
@@ -260,17 +281,35 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/delete/Comment/{id}", name="delete_comment", methods={"POST"})
+     * @Route("/delete/Comment/{id}", name="delete_comment", methods={"GET"})
+     * @IsGranted("ROLE_USER")
      */
     public function deleteComment(Request $request, Comment $comment, CommentRepository $commentRepository): Response
     {
         try {
+            $trick = $comment->getTrick();
             $commentRepository->remove($comment);
-            return new JsonResponse($comment);
         } catch (\Exception $exception) {
-            dump($exception);
+            $this->addFlash('danger', "commentaire non supprimé");
         }
-
-        return new JsonResponse();
+        $this->addFlash('sucess', "commentaire supprimé");
+        return $this->redirectToRoute('trick_show', ["slug" => $trick->getSlug()], Response::HTTP_SEE_OTHER);
     }
+
+    /**
+     * @Route("/edit/Comment/{id}", name="edit_comment", methods={"POST"})
+     * @IsGranted("ROLE_USER")
+     */
+    public function editComment(Request $request, Comment $comment, CommentRepository $commentRepository): Response
+    {
+        $content = $request->get("content");
+        $comment->setContent($content);
+        $commentRepository->add($comment);
+        $trick = $comment->getTrick();
+        return $this->redirect($this->generateUrl('trick_show', ["slug" => $trick->getSlug()]) . '#comments');
+
+
+    }
+
 }
+

@@ -9,6 +9,8 @@
 import './styles/app.scss';
 
 // start the Stimulus application
+import './js/main';
+import './js/detail';
 
 document.addEventListener('DOMContentLoaded', () => {
 // Functions to open and close a modal
@@ -90,31 +92,5 @@ if (tricks.length !== 0) {
             tricks[i].classList.remove('is-hidden');
         }
     })
-}
-
-
-let commentPerPage = 3;
-let comment = document.querySelectorAll("#comments > .card");
-if (comment.length !== 0) {
-    if (comment.length <= commentPerPage) {
-        document.querySelector("#comment_more_button").classList.add('is-hidden');
-    }
-
-    for (let i = commentPerPage; i <= comment.length - 1; i++) {
-        comment[i].classList.add('is-hidden');
-    }
-
-    document.querySelector("#comment_more_button").addEventListener('click', () => {
-        commentPerPage += 3;
-        if (comment.length <= commentPerPage) {
-            document.querySelector("#comment_more_button").classList.add('is-hidden');
-        }
-        for (var i = 0; i < commentPerPage; i++) {
-            if (!comment[i]) {
-                continue;
-            }
-            comment[i].classList.remove('is-hidden');
-        }
-    });
 }
 

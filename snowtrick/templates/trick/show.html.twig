@@ -5,7 +5,7 @@
 {% block body %}
     <div id="from_container" class="container">
         {% if app.user %}
-            <div id="icones_container">
+            <div class="icones_container">
                 <a href="{{ path("trick_edit",{"id" : trick.id}) }}">
                     <div class="icone"><i class="fa-solid fa-pen-to-square"></i></div>
                 </a>
@@ -48,10 +48,15 @@
             {% if trick.comments is not empty %}
                 <hr>
                 <div id="comments">
-
-                    {% for comment in trick.comments|reverse %}
-                        <div class="card">
-                            <div class="card-content">
+                    {% for comment in comments %}
+                        <div id="comment_{{ comment.id }}" class="card">
+                            <div class="card-content comment_content">
+                                {% if app.user and app.user.username == comment.user.username %}
+                                <div class="icones_container">
+                                    {% include 'trick/include/comment_edit_button.twig' with {'comment': comment} %}
+                                    {% include 'trick/include/trash.twig' with {'id': comment.id,'entity':'comment','path': path("trick_delete_comment",{"id" : comment.id}),'redirect':true} %}
+                                </div>
+                                {% endif %}
                                 {{ comment.content }}
                             </div>
                             <div class="card-footer comment_footer">
@@ -63,13 +68,13 @@
                     {% endfor %}
                 </div>
 
-                {% if trick.comments|length > 3 %}
-                    <div class="text-center">
-                        <button id="comment_more_button" class="btn button is-info is-outlined">
-                            Voir plus de commentaire
-                        </button>
+                {% set pagination = pagination(page,trick.comments|length,3) %}
+                    <div class="pagination text-center">
+                        {% for i in pagination.start..pagination.end %}
+                            <a href="{{ path("trick_show",{"slug" : trick.slug})}}?page={{ i+1 }}#comments" class="{% if i+1 == page %}active{% endif %}">{{ i+1 }}</a>
+                            {% if(pagination.end != i) %} <span> - </span>{% endif %}
+                        {% endfor %}
                     </div>
-                {% endif %}
             {% endif %}
         </div>
     </div>

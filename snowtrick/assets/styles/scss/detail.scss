@@ -3,7 +3,7 @@
   position: relative;
 }
 
-#icones_container {
+.icones_container {
   position: absolute;
   right: 10px;
   top: -50px;
@@ -180,6 +180,17 @@ hr {
   }
 }
 
+.comment_content {
+  padding-right: 100px;
+  position: relative;
+  .icones_container {
+    top: 0;
+    .icone {
+      font-size: 16px;
+    }
+  }
+}
+
 .comment_footer {
   img {
     vertical-align: middle;
@@ -192,5 +203,17 @@ hr {
 
   strong {
     vertical-align: sub;
+  }
+}
+
+.pagination{
+  span{
+    color: white;
+  }
+  a:hover{
+    color: white;
+  }
+  a.active{
+    color: white;
   }
 }

@@ -1,0 +1,16 @@
+<div id="modal-editComment-{{ comment.id }}" class="modal">
+    <div class="modal-background"></div>
+
+    <div class="modal-content">
+        <div class="box">
+            <form method="POST" action="{{ path("trick_edit_comment",{"id" : comment.id}) }}" >
+                <label class="required" for="content">Content</label>
+                <textarea class="input" id="content" name="content">{{ comment.content }}</textarea>
+                <div class="has-text-right"><button class="save button btn" type="submit">Modifier</button></div>
+            </form>
+        </div>
+    </div>
+
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
+<button class="icone js-modal-trigger" data-target="modal-editComment-{{ comment.id }}"><i class="fa-solid fa-pen-to-square"></i></button>

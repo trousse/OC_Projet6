@@ -5,9 +5,12 @@
         <div class="box">
             <p>Etes vous sur de vouloir supprimer cette {{ entity }}</p>
             <div class="trash_container">
+                {% if redirect is defined and redirect %} <a class="button is-danger trash_btn" href="{{ path }}"> supprimer</a>
+                {% else %}
                 <button class="button is-danger trash_btn" data-id="{{ id }}" data-entity="{{ entity }}"
                         data-path="{{ path }}" data-method="POST" }>Supprimer
                 </button>
+                {% endif %}
             </div>
         </div>
     </div>
