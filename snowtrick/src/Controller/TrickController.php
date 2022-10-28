@@ -100,7 +100,7 @@ class TrickController extends AbstractController
         }
 
         $page = $request->query->get("page") ? (int)$request->query->get("page") : 1;
-        $comments = $commmentRepository->findBy(['trick' => $trick], ["createdDate" => "desc"], 10, ($page - 1) * 3);
+        $comments = $commmentRepository->findBy(['trick' => $trick], ["createdDate" => "desc"], 10, ($page - 1) * 10);
 
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
